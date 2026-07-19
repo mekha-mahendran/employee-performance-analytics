@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Employee Performance Analytics | Mekha M</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    line-height: 1.6;
+  }
+  header {
+    background: linear-gradient(135deg, #1e3a8a, #0f172a);
+    padding: 60px 20px;
+    text-align: center;
+  }
+  header h1 { font-size: 2.2em; margin-bottom: 10px; }
+  header p { color: #93c5fd; font-size: 1.1em; }
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+  .badges { margin-top: 20px; }
+  .badge {
+    display: inline-block;
+    background: #1e293b;
+    color: #60a5fa;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin: 4px;
+    font-size: 0.85em;
+    border: 1px solid #334155;
+  }
+  section { margin-bottom: 40px; }
+  h2 {
+    color: #60a5fa;
+    border-bottom: 2px solid #1e293b;
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+  }
+  .card {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+  }
+  ul { padding-left: 20px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background: #1e293b;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  th, td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid #334155;
+  }
+  th { background: #1e3a8a; cursor: pointer; }
+  th:hover { background: #2c4a9e; }
+  tr:hover { background: #263449; }
+  .links { text-align: center; margin-top: 30px; }
+  .links a {
+    display: inline-block;
+    background: #2563eb;
+    color: white;
+    padding: 10px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    margin: 6px;
+  }
+  .links a:hover { background: #1d4ed8; }
+  footer {
+    text-align: center;
+    padding: 30px;
+    color: #64748b;
+    font-size: 0.9em;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Employee Performance Analytics</h1>
+  <p>A full-stack analytics project using Java, MySQL and Power BI</p>
+  <div class="badges">
+    <span class="badge">Java</span>
+    <span class="badge">JDBC</span>
+    <span class="badge">MySQL</span>
+    <span class="badge">Power BI</span>
+    <span class="badge">SQL</span>
+  </div>
+</header>
+
+<div class="container">
+
+  <section>
+    <h2>About the Project</h2>
+    <div class="card">
+      <p>This project analyzes employee performance data using a Java application connected to a MySQL database via JDBC. It calculates department-wise salary and performance trends using SQL, and visualizes them through an interactive Power BI dashboard.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Key Insights</h2>
+    <div class="card">
+      <ul>
+        <li>IT department has both the highest average salary and highest average performance rating.</li>
+        <li>Sales department shows the lowest performance and salary averages, suggesting a need for support or training.</li>
+        <li>HR department performs moderately across both metrics.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Live Employee Data</h2>
+    <p style="margin-bottom:10px; color:#94a3b8;">Click a column header to sort.</p>
+    <table id="empTable">
+      <thead>
+        <tr>
+          <th onclick="sortTable(0)">ID</th>
+          <th onclick="sortTable(1)">Name</th>
+          <th onclick="sortTable(2)">Department</th>
+          <th onclick="sortTable(3)">Salary</th>
+          <th onclick="sortTable(4)">Performance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>101</td><td>Arun</td><td>Sales</td><td>25000</td><td>4</td></tr>
+        <tr><td>102</td><td>Priya</td><td>IT</td><td>35000</td><td>5</td></tr>
+        <tr><td>103</td><td>Karthik</td><td>HR</td><td>28000</td><td>3</td></tr>
+        <tr><td>104</td><td>Divya</td><td>IT</td><td>40000</td><td>5</td></tr>
+        <tr><td>105</td><td>Vignesh</td><td>Sales</td><td>22000</td><td>2</td></tr>
+        <tr><td>106</td><td>Meena</td><td>HR</td><td>30000</td><td>4</td></tr>
+        <tr><td>107</td><td>Suresh</td><td>IT</td><td>45000</td><td>5</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Tech Stack</h2>
+    <div class="card">
+      <ul>
+        <li><b>Java (JDBC):</b> Connects to MySQL and runs queries programmatically</li>
+        <li><b>MySQL:</b> Stores employee records (id, name, department, salary, performance rating)</li>
+        <li><b>SQL:</b> GROUP BY and AVG used for department-wise analysis</li>
+        <li><b>Power BI:</b> Live dashboard connected directly to the MySQL database</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="links">
+    <a href="https://github.com/mekha-mahendran/employee-performance-analytics" target="_blank">View Code on GitHub</a>
+  </div>
+
+</div>
+
+<footer>Built by Mekha M</footer>
+
+<script>
+let sortDirection = {};
+function sortTable(colIndex) {
+  const table = document.getElementById("empTable");
+  const rows = Array.from(table.rows).slice(1);
+  const dir = sortDirection[colIndex] = !sortDirection[colIndex];
+
+  rows.sort((a, b) => {
+    let x = a.cells[colIndex].innerText;
+    let y = b.cells[colIndex].innerText;
+    if (!isNaN(x) && !isNaN(y)) { x = +x; y = +y; }
+    return dir ? (x > y ? 1 : -1) : (x < y ? 1 : -1);
+  });
+
+  rows.forEach(row => table.tBodies[0].appendChild(row));
+}
+</script>
+
+</body>
+</html>
